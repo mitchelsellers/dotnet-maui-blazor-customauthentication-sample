@@ -34,10 +34,7 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon
-			Include="Resources\appicon.svg"
-			ForegroundFile="Resources\appiconfg.svg"
-			Color="#512BD4" />
+		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" BaseSize="128,128" />
@@ -66,6 +63,12 @@
 
 	<ItemGroup>
 		<Content Remove="Properties\launchSettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.AUthorization" Version="6.0.3" />
+	  <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.3" />
+	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.3" />
 	</ItemGroup>
 
 </Project>

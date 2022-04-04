@@ -1,0 +1,13 @@
+﻿@page "/logout"
+@inject NavigationManager navigationManager
+@inject CustomAuthenticationStateProvider customAuthenticationStateProvider
+
+<div class="loader loader-bouncing"><span>Redirecting...</span></div>
+@code{
+
+    protected override async Task OnInitializedAsync()
+    {
+        await customAuthenticationStateProvider.Logout();
+        navigationManager.NavigateTo("/login");
+    }
+}

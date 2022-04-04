@@ -1,0 +1,12 @@
+﻿@inject NavigationManager navigationManager
+
+<div class="loader loader-bouncing"><span>Redirecting...</span></div>
+
+@code{
+
+    protected override void OnInitialized()
+    {
+        //The sole purpose of this Razor Component is to immediately redirect the user to the login page.
+        navigationManager.NavigateTo("/login");
+    }
+}

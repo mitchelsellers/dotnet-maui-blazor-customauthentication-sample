@@ -1,10 +1,21 @@
-﻿<Router AppAssembly="@GetType().Assembly">
-	<Found Context="routeData">
-		<RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-	</Found>
-	<NotFound>
-		<LayoutView Layout="@typeof(MainLayout)">
-			<p>Sorry, there's nothing at this address.</p>
-		</LayoutView>
-	</NotFound>
+﻿@using Microsoft.AspNetCore.Components.Authorization
+<!-- Updated the application router to icnlude authorization proceses, which sets what happens if a user tries to get to a page they cannot get to ->
+<Router AppAssembly="@GetType().Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+            <Authorizing>
+                Authorizing...
+            </Authorizing>
+            <NotAuthorized>
+                <RedirectToLogin />
+            </NotAuthorized>
+        </AuthorizeRouteView>
+    </Found>
+    <NotFound>
+        <CascadingAuthenticationState>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </CascadingAuthenticationState>
+    </NotFound>
 </Router>

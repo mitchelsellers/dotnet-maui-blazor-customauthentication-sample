@@ -1,4 +1,6 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using Microsoft.AspNetCore.Components.Authorization
+
+<div class="top-row ps-3 navbar navbar-dark">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="">SampleMauiApplication</a>
 		<button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -9,21 +11,38 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
 	<nav class="flex-column">
-		<div class="nav-item px-3">
-			<NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-				<span class="oi oi-home" aria-hidden="true"></span> Home
-			</NavLink>
-		</div>
-		<div class="nav-item px-3">
-			<NavLink class="nav-link" href="counter">
-				<span class="oi oi-plus" aria-hidden="true"></span> Counter
-			</NavLink>
-		</div>
-		<div class="nav-item px-3">
-			<NavLink class="nav-link" href="fetchdata">
-				<span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-			</NavLink>
-		</div>
+        <!-- The authorize view will render different content based on the user's authentication status, in our case login only if not logged in -->
+		<AuthorizeView>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Home
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="counter">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Counter
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="fetchdata">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="logout">
+                        <span class="oi oi-account-logout" aria-hidden="true"></span> Log Out
+                    </NavLink>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="login">
+                        <span class="oi oi-account-login" aria-hidden="true"></span> Login
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
 	</nav>
 </div>
 
