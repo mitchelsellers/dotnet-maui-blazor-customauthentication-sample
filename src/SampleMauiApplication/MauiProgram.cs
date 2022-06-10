@@ -10,15 +10,14 @@ public static class MauiProgram
 	{
 		var builder = MauiApp.CreateBuilder();
 		builder
-			.RegisterBlazorMauiWebView()
 			.UseMauiApp<App>()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 			});
-
-		//Register needed elements for authentication
-		builder.Services.AddAuthorizationCore(); // This is the core functionality
+		builder.Services.AddMauiBlazorWebView();
+        //Register needed elements for authentication
+        builder.Services.AddAuthorizationCore(); // This is the core functionality
 		builder.Services.AddScoped<CustomAuthenticationStateProvider>(); // This is our custom provider
 		//When asking for the default Microsoft one, give ours!
 		builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<CustomAuthenticationStateProvider>());
