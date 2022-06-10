@@ -13,9 +13,29 @@ namespace SampleMauiApplication.Models
 
         public bool LoginFailureHidden { get; set; } = true;
 
-        public bool ValidateLogin(out string jwtToken)
+        public async Task<bool> ValidateLoginAsync(out string jwtToken)
         {
-            if(Username.Equals("Test") && Password.Equals("Test"))
+            try
+            {
+                WebAuthenticatorResult authResult = await WebAuthenticator.Default.AuthenticateAsync(
+                    new WebAuthenticatorOptions()
+                    {
+                        Url = new Uri("https://mysite.com/mobileauth/Microsoft"),
+                        CallbackUrl = new Uri("myapp://"),
+                        PrefersEphemeralWebBrowserSession = true
+                    });
+
+                string accessToken = authResult?.AccessToken;
+
+                // Do something with the token
+            }
+            catch (TaskCanceledException e)
+            {
+                // Use stopped auth
+            }
+
+
+            if (Username.Equals("Test") && Password.Equals("Test"))
             {
                 jwtToken = "123456";
                 return true;

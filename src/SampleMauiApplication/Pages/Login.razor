@@ -34,7 +34,7 @@
     private async Task HandleValidSubmit()
     {
         //Valiate user acount
-        var successful = loginModel.ValidateLogin(out string jwtToken);
+        var successful = await loginModel.ValidateLoginAsync(out string jwtToken);
 
         //Not successful, don't need to do anything
         if (!successful)
