@@ -13,18 +13,17 @@ namespace SampleMauiApplication.Models
 
         public bool LoginFailureHidden { get; set; } = true;
 
-        public bool ValidateLogin(out string jwtToken)
+        public async Task<string> ValidateLoginAsync()
         {
-            if(Username.Equals("Test") && Password.Equals("Test"))
+
+            if (Username.Equals("Test") && Password.Equals("Test"))
             {
-                jwtToken = "123456";
-                return true;
+                return "123456";
             }
 
             //Not valid
-            jwtToken = null;
             LoginFailureHidden = false;
-            return false;
+            return null;
         }
     }
 }

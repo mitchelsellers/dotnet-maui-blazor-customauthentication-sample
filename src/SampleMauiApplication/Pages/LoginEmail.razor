@@ -1,0 +1,47 @@
+﻿@page "/loginemail"
+@using SampleMauiApplication.Models
+@inject NavigationManager Navigation;
+@inject CustomAuthenticationStateProvider AuthStateProvider;
+
+<h3>Login to Access Application</h3>
+
+<div class="alert alert-info">
+    This is a dummy login page, providing `Test` for the Username and Password will authenticate you.
+</div>
+
+<EditForm Model="@loginModel" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="alert alert-danger" hidden="@loginModel.LoginFailureHidden">
+        Invalid login attempt, please correct and try again.
+    </div>
+    <div class="form-group">
+        <label>Username</label>
+        <InputText id="email" @bind-Value="loginModel.Username" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <InputText id="password" type="password" @bind-Value="loginModel.Password" class="form-control" />
+    </div>
+    <div class="form-group mt-1">
+        <button type="submit" class="btn btn-primary w-100">Login Now</button>
+    </div>
+</EditForm>
+
+@code {
+    private LoginViewModel loginModel = new();
+
+    private async Task HandleValidSubmit()
+    {
+        //Valiate user acount
+        var jwtToken = await loginModel.ValidateLoginAsync();
+
+        //Not successful, don't need to do anything
+        if (String.IsNullOrEmpty(jwtToken))
+            return;
+
+        //Call login and recirect
+        await AuthStateProvider.Login(jwtToken);
+        Navigation.NavigateTo(""); //Root URL
+    }
+}
